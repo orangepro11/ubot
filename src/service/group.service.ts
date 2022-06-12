@@ -3,6 +3,7 @@ import { QbotProvider } from '@shared'
 import { MESSAGE_LIBRARY, MESSAGE_LIBRARY_ARRAY, QBOT } from '@option'
 import { isInclude, inIndex } from '@util'
 import { GroupMessageEvent } from 'oicq'
+import { ping } from '../util/system'
 
 @Injectable()
 export class GroupService {
@@ -80,6 +81,10 @@ export class GroupService {
         await event.reply(
           `已经找到关于 '${wd}' 的解决办法\nhttps://www.baidu.com/s?wd=${encodeURI(wd)}`
         )
+      },
+      '/ping': async () => {
+        const host = event?.source?.message.toString()
+        await event.reply(await ping(host))
       }
     }?.[direct]
 
