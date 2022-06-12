@@ -1,0 +1,40 @@
+{
+  "name": "ubot",
+  "private": true,
+  "scripts": {
+    "start": "nest start",
+    "build": "rimraf dist && nest build",
+    "dev": "cross-env NODE_ENV=dev nest start --watch",
+    "lint": "eslint src/**/*.ts --fix",
+    "format": "prettier src/**/*.ts --write"
+  },
+  "dependencies": {
+    "@akunx/nest-core": "^1.0.26",
+    "@nestjs/common": "^8.4.6",
+    "@nestjs/core": "^8.4.6",
+    "@nestjs/platform-express": "^8.4.6",
+    "cross-env": "^7.0.3",
+    "oicq": "^2.2.3",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.5.5"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^8.2.6",
+    "@nestjs/schematics": "^8.0.11",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.42",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.2",
+    "source-map-support": "^0.5.21",
+    "ts-loader": "^9.3.0",
+    "ts-node": "^10.8.1",
+    "tsconfig-paths": "^4.0.0",
+    "typescript": "^4.7.3",
+    "webpack": "^5.73.0"
+  }
+}

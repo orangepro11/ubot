@@ -1,0 +1,14 @@
+# git
+/.git
+
+# log
+/.logger
+
+# cache
+/.cache
+
+# modules
+/node_modules
+
+# compiled
+/dist

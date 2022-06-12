@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "commonJs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ESNext",
+    "sourceMap": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "paths": {
+      "@service/*": ["./service/*"],
+      "@shared/*": ["./shared/*"],
+      "@shared": ["./shared/index"],
+      "@util": ["./util/index"],
+      "@option": ["./option"],
+      "@src/*": ["./*"]
+    }
+  },
+  "include": ["src"]
+}
