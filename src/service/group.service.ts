@@ -5,7 +5,7 @@ import { isInclude, inIndex } from '@util'
 import { GroupMessageEvent, TextElem } from 'oicq'
 import { ping } from '../util/system'
 import { GiteeProvider } from '@shared/gitee.provider'
-import { render } from '@src/util/template'
+import { render } from '../util/template'
 
 @Injectable()
 export class GroupService {
