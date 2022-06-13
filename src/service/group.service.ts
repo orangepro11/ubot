@@ -63,39 +63,59 @@ export class GroupService {
 
   commonAction = async (event: GroupMessageEvent) => {
     const direct = {
-      '/来份涩图': async () => {
+      '#来份涩图': async () => {
         await event.reply({
           type: 'image',
           file: 'https://api.btstu.cn/sjbz/api.php?lx=dongman&format=images&method=mobile'
         })
       },
-      '/百度': async () => {
-        const wd = event?.source?.message.toString() || event.raw_message.split('/百度')[1].trim()
+      '#百度': async () => {
+        const wd = event?.source?.message.toString() || event.raw_message.split('#百度')[1].trim()
         if (!wd) return event.reply('请输入需要搜索的内容')
         await event.reply(
           `已经找到关于${wd}的解决办法\nhttps://www.baidu.com/s?wd=${encodeURI(wd)}`
         )
       },
-      '/ping': async () => {
-        let host = (<TextElem>event?.message[0])?.text.toString()
-        host = host.split('/ping')[1].trim()
+      '#ping': async () => {
+        console.log('ping')
+        let host =
+          event?.source?.message.toString() || (<TextElem>event?.message[0])?.text.toString()
+        host = host.split('#ping')[1].trim()
         console.log('host: ' + host)
         const res = await ping()
         await event.reply(res)
       },
-      '/菜单': async () => {
+      '#菜单': async () => {
         render('menu.ejs', {
           title: 'ubot',
-          options: MESSAGE_LIBRARY_KEYS
+          options: ['#来份涩图', '#百度', '#ping']
         }).then(event.reply.bind(event))
       },
-      '/下载': async () => {
+      '#下载': async () => {
         const res = await this.gitee.getLatestRelease()
         render('download.ejs', {
           name: res.name,
           repo_urls: res.assets,
+          content: res.body,
           docs_url: 'https://www.uviewui.com/',
           kancloud_url: 'https://www.kancloud.cn/uview/uview-ui_v2/content'
+        }).then(event.reply.bind(event))
+      },
+      '#更新': async () => {
+        let res = await this.gitee.getReadMe()
+        res = res.split('##')[1].split('##')[0]
+        res = res.split('\n\n')
+        let version = res[0].split('\n')[0].trim()
+        let tips = res[0].split('\n')[1].split('#')[1].trim()
+        let content = res[1]
+          .split('\n')
+          .map(v => v.trim())
+          .map(v => v.split('.')[1]?.trim())
+          .filter(v => v)
+        render('readme.ejs', {
+          version,
+          tips,
+          content
         }).then(event.reply.bind(event))
       }
     }
@@ -110,7 +130,6 @@ export class GroupService {
   keywordAction = async (event: GroupMessageEvent) => {
     const index = inIndex(event.raw_message, MESSAGE_LIBRARY_KEYS)
     if (index == -1) return false
-
     await event.reply(MESSAGE_LIBRARY[MESSAGE_LIBRARY_KEYS[index]], true)
     return true
   }

@@ -19,7 +19,15 @@ export class GiteeProvider {
 
   async getLatestRelease() {
     const url = `https://gitee.com/api/v5/repos/${this.owner}/${this.repo}/releases/latest?access_token=${this.access_token}`
+    console.log(url)
     const response = await this.httpClient.get(url)
+    return response.data
+  }
+
+  async getReadMe() {
+    const url = `https://gitee.com/umicro/uView2.0/raw/master/uni_modules/uview-ui/changelog.md`
+    const response = await this.httpClient.get(url)
+    console.log(response)
     return response.data
   }
 }
