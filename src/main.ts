@@ -4,7 +4,7 @@ import { SharedModule } from './shared/module'
 import { ServiceModule } from './service/module'
 import { HttpClientModule } from '@tresdoce/nestjs-httpclient'
 
-<<<<<<< HEAD
+
 @Module({ imports: [SharedModule, ServiceModule, HttpClientModule] })
 class AppModule {}
 
@@ -14,13 +14,4 @@ const bootstrap = async () => {
 }
 
 bootstrap()
-=======
-bootstrap({
-  port: 8000,
-  application: NestFactory.create(
-    CoreModule.register({
-      imports: [SharedModule, ServiceModule, HttpClientModule]
-    })
-  )
-})
->>>>>>> origin/add-gitee
+

@@ -3,17 +3,7 @@ import { QbotProvider } from '@shared'
 import { MESSAGE_LIBRARY, MESSAGE_LIBRARY_KEYS, QBOT } from '@option'
 import { isInclude, inIndex, ping, render } from '@util'
 import { GroupMessageEvent, TextElem } from 'oicq'
-<<<<<<< HEAD
 import { GiteeProvider } from '@shared/gitee.provider'
-<<<<<<< HEAD
-=======
-import { render } from '../util/template'
->>>>>>> 4e4baf4 (fix: templates not found)
-=======
-import { ping } from '../util/system'
-import { GiteeProvider } from '@shared/gitee.provider'
-import { render } from '../util/template'
->>>>>>> origin/add-gitee
 
 @Injectable()
 export class GroupService {
@@ -58,11 +48,7 @@ export class GroupService {
     return true
   }
 
-<<<<<<< HEAD
   blackList = async (event: GroupMessageEvent) => {
-=======
-  backList = async (event: GroupMessageEvent) => {
->>>>>>> origin/add-gitee
     if (!isInclude(event.raw_message, QBOT.group.blackList.keyword)) {
       return false
     }
@@ -100,11 +86,7 @@ export class GroupService {
       '/菜单': async () => {
         render('menu.ejs', {
           title: 'ubot',
-<<<<<<< HEAD
           options: MESSAGE_LIBRARY_KEYS
-=======
-          options: QBOT.group.direct
->>>>>>> origin/add-gitee
         }).then(event.reply.bind(event))
       },
       '/下载': async () => {
