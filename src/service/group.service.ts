@@ -4,6 +4,10 @@ import { MESSAGE_LIBRARY, MESSAGE_LIBRARY_KEYS, QBOT } from '@option'
 import { isInclude, inIndex, ping, render } from '@util'
 import { GroupMessageEvent, TextElem } from 'oicq'
 import { GiteeProvider } from '@shared/gitee.provider'
+<<<<<<< HEAD
+=======
+import { render } from '../util/template'
+>>>>>>> 4e4baf4 (fix: templates not found)
 
 @Injectable()
 export class GroupService {
