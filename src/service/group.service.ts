@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { QbotProvider } from '@shared'
 import { MESSAGE_LIBRARY, MESSAGE_LIBRARY_ARRAY, QBOT } from '@option'
 import { isInclude, inIndex } from '@util'
-import { GroupMessageEvent } from 'oicq'
+import { GroupMessageEvent, TextElem } from 'oicq'
 import { ping } from '../util/system'
 
 @Injectable()
@@ -24,7 +24,8 @@ export class GroupService {
   }
 
   listenGroup = async (event: GroupMessageEvent) => {
-    return !isInclude(QBOT.group.listen, [event.group_id])
+    // return !isInclude(QBOT.group.listen, [event.group_id])
+    return false
   }
 
   masterAction = async (event: GroupMessageEvent) => {
@@ -66,25 +67,31 @@ export class GroupService {
   commonAction = async (event: GroupMessageEvent) => {
     const isDirect = inIndex(event.raw_message, QBOT.group.direct)
     const direct = QBOT.group.direct?.[isDirect]
+    console.log(direct)
     if (!direct) return false
 
     const action = {
       '/来份涩图': async () => {
+        console.log(event)
         await event.group.sendMsg({
           type: 'image',
           file: 'https://api.btstu.cn/sjbz/api.php?lx=dongman&format=images&method=mobile'
         })
       },
       '/百度': async () => {
-        const wd = event?.source?.message.toString()
-        if (!wd) return
+        let wd = (<TextElem>event?.message[0])?.text.toString()
+        wd = wd.split('/百度')[1].trim()
+        if (!wd) return true
         await event.reply(
-          `已经找到关于 '${wd}' 的解决办法\nhttps://www.baidu.com/s?wd=${encodeURI(wd)}`
+          `已经找到关于${wd}的解决办法\nhttps://www.baidu.com/s?wd=${encodeURI(wd)}`
         )
       },
       '/ping': async () => {
-        const host = event?.source?.message.toString()
-        await event.reply(await ping(host))
+        let host = (<TextElem>event?.message[0])?.text.toString()
+        host = host.split('/ping')[1].trim()
+        console.log('host: ' + host)
+        const res = await ping()
+        await event.reply(res)
       }
     }?.[direct]
 
