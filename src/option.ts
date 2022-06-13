@@ -50,7 +50,12 @@ export const QBOT: IQBotOptions = {
       keyword: ['腾讯'],
       message: ' Warning! 请不要发广告! \n你再发别逼我跪下来求你!'
     },
-    direct: ['/来份涩图', '/百度', '/ping', '/菜单']
+    direct: ['/百度', '/ping', '/菜单', '/下载']
+  },
+  gitee: {
+    access_token: 'ae3fd68b7407d5e681eeceb1d57d405a',
+    owner: 'umicro',
+    repo: 'uView2.0'
   }
 }
 
