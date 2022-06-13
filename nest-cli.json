@@ -2,6 +2,7 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
+    "assets": ["**/*.ejs"],
     "tsConfigPath": "tsconfig.json"
   }
 }
