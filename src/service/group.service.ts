@@ -4,6 +4,9 @@ import { MESSAGE_LIBRARY, MESSAGE_LIBRARY_ARRAY, QBOT } from '@option'
 import { isInclude, inIndex } from '@util'
 import { GroupMessageEvent, TextElem } from 'oicq'
 import { ping } from '../util/system'
+import { readFile } from 'fs'
+import { resolve } from 'path'
+const ejs = require('ejs')
 
 @Injectable()
 export class GroupService {
@@ -92,6 +95,17 @@ export class GroupService {
         console.log('host: ' + host)
         const res = await ping()
         await event.reply(res)
+      },
+      '/菜单': async () => {
+        readFile(resolve(__dirname, '../templates/menu.ejs'), 'utf8', async (err, data) => {
+          if (err) throw err
+          await event.reply(
+            ejs.render(data, {
+              title: 'ubot',
+              list: QBOT.group.direct
+            })
+          )
+        })
       }
     }?.[direct]
 
