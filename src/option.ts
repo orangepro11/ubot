@@ -1,7 +1,44 @@
-export const QBOT = {
+interface IQBotOptions {
+  /* 登录相关配置 */
   login: {
-    account: 10001,
-    password: ''
+    /* QQ号 */
+    account: number
+    /* QQ密码，可选，如不填则扫码登录 */
+    password?: string
+  }
+  /* 管理员相关 */
+  admin: {
+    /* 管理员QQ号 */
+    master: number[]
+    /* 可用指令 */
+    direct: string[]
+  }
+  /* 群相关 */
+  group: {
+    /* 监听群 */
+    listen: number[]
+    /* 关键字黑名单 */
+    blackList?: {
+      keyword: string[]
+      message: string
+    }
+    /* 可用指令 */
+    direct: string[]
+  }
+  /* gitee相关 */
+  gitee?: {
+    /* 自己去 https://gitee.com/api/v5/swagger#/getV5ReposOwnerRepoStargazers?ex=no 登录获取 */
+    access_token: string
+    /* 组织名 */
+    owner: string
+    /* 仓库名 */
+    repo: string
+  }
+}
+
+export const QBOT: IQBotOptions = {
+  login: {
+    account: 2541810967
   },
   admin: {
     master: [],
@@ -9,11 +46,11 @@ export const QBOT = {
   },
   group: {
     listen: [],
-    backList: {
+    blackList: {
       keyword: ['腾讯'],
       message: ' Warning! 请不要发广告! \n你再发别逼我跪下来求你!'
     },
-    direct: ['/来份涩图', '/百度']
+    direct: ['/来份涩图', '/百度', '/ping', '/菜单']
   }
 }
 
