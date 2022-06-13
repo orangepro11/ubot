@@ -1,13 +1,13 @@
 export const QBOT = {
   login: {
-    account: 10001,
-    password: ''
+    account: 3289446362,
+    password: 'xk987321'
   },
   admin: {
-    master: []
+    master: [22528850]
   },
   group: {
-    listen: [],
+    listen: [744080406, 965190918, 723562060, 1049576293],
     blackList: {
       keyword: ['腾讯'],
       message: ' Warning! 请不要发广告! \n你再发别逼我跪下来求你!'
