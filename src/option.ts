@@ -1,4 +1,38 @@
-export const QBOT = {
+interface IQBotOptions {
+  /* 登录相关配置 */
+  login: {
+    /* QQ号 */
+    account: number
+    /* QQ密码，可选，如不填则扫码登录 */
+    password?: string
+  }
+  /* 管理员相关 */
+  admin: {
+    /* 管理员QQ号 */
+    master: number[]
+  }
+  /* 群相关 */
+  group: {
+    /* 监听群 */
+    listen: number[]
+    /* 关键字黑名单 */
+    blackList?: {
+      keyword: string[]
+      message: string
+    }
+  }
+  /* gitee相关 */
+  gitee?: {
+    /* 自己去 https://gitee.com/api/v5/swagger#/getV5ReposOwnerRepoStargazers?ex=no 登录获取 */
+    access_token: string
+    /* 组织名 */
+    owner: string
+    /* 仓库名 */
+    repo: string
+  }
+}
+
+export const QBOT: IQBotOptions = {
   login: {
     account: 3289446362,
     password: 'xk987321'
@@ -12,6 +46,11 @@ export const QBOT = {
       keyword: ['腾讯'],
       message: ' Warning! 请不要发广告! \n你再发别逼我跪下来求你!'
     }
+  },
+  gitee: {
+    access_token: 'ae3fd68b7407d5e681eeceb1d57d405a',
+    owner: 'umicro',
+    repo: 'uView2.0'
   }
 }
 

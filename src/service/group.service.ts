@@ -1,12 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { QbotProvider } from '@shared'
 import { MESSAGE_LIBRARY, MESSAGE_LIBRARY_KEYS, QBOT } from '@option'
-import { isInclude, inIndex, ping } from '@util'
-import { GroupMessageEvent } from 'oicq'
+import { isInclude, inIndex, ping, render } from '@util'
+import { GroupMessageEvent, TextElem } from 'oicq'
+import { GiteeProvider } from '@shared/gitee.provider'
+<<<<<<< HEAD
+=======
+import { render } from '../util/template'
+>>>>>>> 4e4baf4 (fix: templates not found)
 
 @Injectable()
 export class GroupService {
   @Inject() qbot: QbotProvider
+  @Inject() gitee: GiteeProvider
 
   onModuleInit = () => {
     this.qbot.client.on('message.group', event => {
@@ -75,18 +81,26 @@ export class GroupService {
         )
       },
       '/ping': async () => {
-        const host = event.raw_message.split('/ping')?.[1].trim()
-        const res = await ping(host.length ? host : undefined).catch((res: string) => res)
-        await event.reply(res, true)
+        let host = (<TextElem>event?.message[0])?.text.toString()
+        host = host.split('/ping')[1].trim()
+        console.log('host: ' + host)
+        const res = await ping()
+        await event.reply(res)
       },
       '/菜单': async () => {
-        await event.reply(
-          `==== ubot ====\n\n${directKeys
-            .map(v => `\n${v}\n`)
-            .toString()
-            .replaceAll(',', '')
-            .trim()}`
-        )
+        render('menu.ejs', {
+          title: 'ubot',
+          options: MESSAGE_LIBRARY_KEYS
+        }).then(event.reply.bind(event))
+      },
+      '/下载': async () => {
+        const res = await this.gitee.getLatestRelease()
+        render('download.ejs', {
+          name: res.name,
+          repo_urls: res.assets,
+          docs_url: 'https://www.uviewui.com/',
+          kancloud_url: 'https://www.kancloud.cn/uview/uview-ui_v2/content'
+        }).then(event.reply.bind(event))
       }
     }
 

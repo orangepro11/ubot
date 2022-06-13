@@ -1,0 +1,6 @@
+<%= name %>
+源码下载: <% repo_urls.forEach(function(repo) { %>
+  <%= repo.browser_download_url -%>
+<% }) %>
+文档地址: <%= docs_url %>
+看云地址: <%= kancloud_url %>
