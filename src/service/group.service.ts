@@ -79,14 +79,9 @@ export class GroupService {
         const res = await ping(host.length ? host : undefined).catch((res: string) => res)
         await event.reply(res, true)
       },
-      '/菜单': async () => {
-        await event.reply(
-          `==== ubot ====\n\n${directKeys
-            .map(v => `\n${v}\n`)
-            .toString()
-            .replaceAll(',', '')
-            .trim()}`
-        )
+      '/菜单': async () => {},
+      '/下载': async () => {
+        let url = `https://gitee.com/api/v5/repos/{owner}/{repo}/releases/latest`
       }
     }
 
