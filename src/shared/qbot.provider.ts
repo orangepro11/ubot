@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { wait } from '@util'
-import { createClient, Client, Platform } from 'oicq'
+import { createClient, Client } from 'oicq'
 import { QBOT } from '@option'
 
 @Injectable()
@@ -9,8 +9,7 @@ export class QbotProvider {
 
   onModuleInit = async () => {
     const client = createClient(QBOT.login.account, {
-      data_dir: `${process.cwd()}/.qbot`,
-      platform: Platform.aPad
+      data_dir: `${process.cwd()}/.qbot`
     })
       .on('system.online', () => {
         console.log('Logged in!')
