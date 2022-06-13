@@ -1,4 +1,5 @@
 export * from './system'
+export * from './template'
 
 export const inIndex = (
   content: string | string[] | number | number[],
