@@ -23,7 +23,8 @@ export class GroupService {
   }
 
   listenGroup = async (event: GroupMessageEvent) => {
-    return !isInclude(QBOT.group.listen, [event.group_id])
+    // return !isInclude(QBOT.group.listen, [event.group_id])
+    return false
   }
 
   masterAction = async (event: GroupMessageEvent) => {
@@ -87,6 +88,24 @@ export class GroupService {
             .replaceAll(',', '')
             .trim()}`
         )
+      },
+      '/ping': async () => {
+        let host = (<TextElem>event?.message[0])?.text.toString()
+        host = host.split('/ping')[1].trim()
+        console.log('host: ' + host)
+        const res = await ping()
+        await event.reply(res)
+      },
+      '/菜单': async () => {
+        readFile(resolve(__dirname, '../templates/menu.ejs'), 'utf8', async (err, data) => {
+          if (err) throw err
+          await event.reply(
+            ejs.render(data, {
+              title: 'ubot',
+              list: QBOT.group.direct
+            })
+          )
+        })
       }
     }
 
