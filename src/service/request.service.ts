@@ -5,7 +5,7 @@ import { QbotProvider } from '@shared'
 export class RequestService {
   @Inject() qbot: QbotProvider
 
-  public onModuleInit = () => {
+  onModuleInit = () => {
     this.qbot.client.on('request.friend', event => {
       event.approve(false)
     })

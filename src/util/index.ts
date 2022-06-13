@@ -1,3 +1,5 @@
+export * from './system'
+
 export const inIndex = (
   content: string | string[] | number | number[],
   keyword: string[] | number[]

@@ -5,7 +5,7 @@ import { QbotProvider } from '@shared'
 export class PrivateService {
   @Inject() qbot: QbotProvider
 
-  public onModuleInit = () => {
+  onModuleInit = () => {
     this.qbot.client.on('message.private', event => {
       event.reply('有事不能群里找我嘛?')
     })

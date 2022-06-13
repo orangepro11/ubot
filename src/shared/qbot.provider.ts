@@ -11,15 +11,16 @@ export class QbotProvider {
     const client = createClient(QBOT.login.account, {
       data_dir: `${process.cwd()}/.qbot`
     })
+      .on('system.online', () => {
+        console.log('Logged in!')
+      })
+      .on('system.offline', () => {
+        console.log('Account logged out! Please restart service')
+      })
 
-    client.on('system.online', () => {
-      console.log('Logged in!')
-    })
+    await client.login(QBOT.login.password)
 
-    for (; !client.isOnline(); ) {
-      await client.login(QBOT.login.password).finally(() => wait(1000))
-      !client.isOnline() && (await wait(60000))
-    }
+    for (; !client.isOnline(); ) await wait(1000)
 
     this.client = client
   }
