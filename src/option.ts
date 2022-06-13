@@ -48,7 +48,7 @@ export const QBOT: IQBotOptions = {
     }
   },
   gitee: {
-    access_token: 'd689c5a27a22bfab9c48cde93268ee5e',
+    access_token: 'ae3fd68b7407d5e681eeceb1d57d405a',
     owner: 'umicro',
     repo: 'uView2.0'
   }
