@@ -55,14 +55,14 @@ export class GroupService {
   }
 
   backList = async (event: GroupMessageEvent) => {
-    if (!isInclude(event.raw_message, QBOT.group.backList.keyword)) {
+    if (!isInclude(event.raw_message, QBOT.group.blackList.keyword)) {
       return false
     }
 
     await event.recall()
     await event.reply([
       { type: 'at', qq: event.sender.user_id },
-      { type: 'text', text: QBOT.group.backList.message }
+      { type: 'text', text: QBOT.group.blackList.message }
     ])
     return true
   }
@@ -106,6 +106,9 @@ export class GroupService {
             })
           )
         })
+      },
+      '/下载': async () => {
+        let url = `https://gitee.com/api/v5/repos/{owner}/{repo}/releases/latest`
       }
     }?.[direct]
 
