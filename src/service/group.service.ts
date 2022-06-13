@@ -4,13 +4,13 @@ import { MESSAGE_LIBRARY, MESSAGE_LIBRARY_ARRAY, QBOT } from '@option'
 import { isInclude, inIndex } from '@util'
 import { GroupMessageEvent, TextElem } from 'oicq'
 import { ping } from '../util/system'
-import { readFile } from 'fs'
-import { resolve } from 'path'
-const ejs = require('ejs')
+import { GiteeProvider } from '@shared/gitee.provider'
+import { render } from '@src/util/template'
 
 @Injectable()
 export class GroupService {
   @Inject() qbot: QbotProvider
+  @Inject() gitee: GiteeProvider
 
   onModuleInit = () => {
     this.qbot.client.on('message.group', event => {
@@ -97,18 +97,19 @@ export class GroupService {
         await event.reply(res)
       },
       '/菜单': async () => {
-        readFile(resolve(__dirname, '../templates/menu.ejs'), 'utf8', async (err, data) => {
-          if (err) throw err
-          await event.reply(
-            ejs.render(data, {
-              title: 'ubot',
-              list: QBOT.group.direct
-            })
-          )
-        })
+        render('menu.ejs', {
+          title: 'ubot',
+          options: QBOT.group.direct
+        }).then(event.reply.bind(event))
       },
       '/下载': async () => {
-        let url = `https://gitee.com/api/v5/repos/{owner}/{repo}/releases/latest`
+        const res = await this.gitee.getLatestRelease()
+        render('download.ejs', {
+          name: res.name,
+          repo_urls: res.assets,
+          docs_url: 'https://www.uviewui.com/',
+          kancloud_url: 'https://www.kancloud.cn/uview/uview-ui_v2/content'
+        }).then(event.reply.bind(event))
       }
     }?.[direct]
 
